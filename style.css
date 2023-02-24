@@ -31,10 +31,14 @@ header {
 }
 
 .calendar {
-}
-.month {
     text-transform: uppercase;
     font-weight: 900;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 32px;
+}
+
+.month {
 }
 .month__title {
     font-size: 32px;
