@@ -38,8 +38,8 @@ header {
     grid-gap: 32px;
 }
 
-.month {
-}
+/*.month {
+}*/
 .month__title {
     font-size: 32px;
     color: #404040;

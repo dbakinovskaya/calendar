@@ -65,7 +65,6 @@ const months = [
     },
 
 ];
-const dayNames = ['пн','вт','ср','чт','пт','сб','вс'];
 
 //функция для генерации шапки месяца
 function buildMonthHead(title, monthName) {
@@ -81,11 +80,34 @@ function renderMonth(monthIdx, year) {
     const monthHeadString = buildMonthHead(month.title, month.name);
     const monthBox = document.createElement('div');
     monthBox.className = 'month';
-    monthBox.innerHTML = monthHeadString;
+    monthBox.innerHTML = monthHeadString + `<div class='month__content'>${renderWeekDaysNames()}</div>`;
     dom.calendar.append(monthBox);
 };
 
 //цикл для отрисовки всех месяцев
-for (let i=0; i<=11; i++) {
+for (let i=0; i<1; i++) { // пока заменили на 1 месяц
     renderMonth(i, 2022);
+    renderWeekDaysNames();
 };
+
+//функция отрисовки ячеек
+function buildCell(content, isAccent = false) { //isAccent для выходных(ячейки другого цвета)
+    const cls = isAccent ? 'month__date month__date_accent' : 'month__date';
+    return `<div class=${cls}>${content}</div>`
+}
+
+function renderMonthCells(monthData) {
+
+}
+
+function renderWeekDaysNames() {
+    const weekDays = ['пн','вт','ср','чт','пт','сб','вс'];
+    let dayNames = [];
+    for (let i=0; i<=6; i++) {
+        const dayNameTag = `<div class='month__date month__date_accent'>${weekDays[i]}</div>`;
+        dayNames.push(dayNameTag);
+    }
+    return dayNames.join('');
+}
+
+//след коммит: добавили отрисовку ячеек для дат
