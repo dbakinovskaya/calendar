@@ -1,14 +1,14 @@
 const dom = {
     calendar: document.querySelector('#calendar'),
     year: document.querySelector('#year'),
-};
+}
 
 const year = new Date().getFullYear();
 dom.year.innerHTML = year;
 
 function isLeap(year) {
     let date = new Date(year, 2, 0);
-    return date.getDate()
+    return date.getDate();
 }
 
 const months = [
@@ -75,7 +75,6 @@ const months = [
 
 ];
 
-//функция для генерации шапки месяца
 function buildMonthHead(title, monthName) {
     return `
         <div class='month__title'>${title}</div>
@@ -83,8 +82,7 @@ function buildMonthHead(title, monthName) {
     `
 }
 
-//функция для шапки дней недели
-function renderWeekDaysNames() {
+function buildWeekDaysNames() {
     const weekDays = ['пн','вт','ср','чт','пт','сб','вс'];
     let dayNames = [];
     for (let i=0; i<=6; i++) {
@@ -94,50 +92,51 @@ function renderWeekDaysNames() {
     return dayNames.join('');
 }
 
-//функция для отрисовки месяца
-function renderMonth(monthIdx, year) {
-    const month = months[monthIdx];
-    const monthHeadString = buildMonthHead(month.title, month.name);
-    let monthContentHTML = ['<div class=\"month__content\">'];
-    const monthBox = document.createElement('div');
-    monthBox.className = 'month';
-    monthContentHTML.push(renderWeekDaysNames());
-    monthContentHTML.push(renderDates(year, monthIdx, month.days));
-    monthContentHTML.push('</div>');
-    monthBox.innerHTML = monthHeadString + monthContentHTML.join('');
-    dom.calendar.append(monthBox);
-};
+function buildDateCell(content, isAccent = false) {
+    const cls = isAccent ? 'month__date month__date_accent' : 'month__date';
+    return `<div class="${cls}">${content}</div>`;
+}
 
-function renderDates(year,monthIdx, daysCount) {
-    const date = new Date(year, monthIdx, 1);
+
+function buildDates(year,monthIdx, daysCount) {
     let datesHTML = [];
+    const date = new Date(year, monthIdx, 1);
     const startDay = date.getDay();
 
-    let count = 1;
-    while (count < startDay || (startDay == 0 && count <=6)) {
-        datesHTML.push(buildDate(''));
-        count++;
+    let emptyCells = 1;
+    while (emptyCells < startDay || (startDay == 0 && emptyCells <=6)) {
+        datesHTML.push(buildDateCell(''));
+        emptyCells++;
     }
 
     let day = 1;
     while (day <= daysCount) {
         let checkDay = new Date(year, monthIdx, day).getDay();
         if (checkDay == 0 || checkDay == 6) {
-            datesHTML.push(buildDate(day, true));
+            datesHTML.push(buildDateCell(day, true));
             day++;
         } else {
-            datesHTML.push(buildDate(day));
+            datesHTML.push(buildDateCell(day));
             day++;
         }
     }
     return datesHTML.join('');
 }
 
-//функция отрисовки ячеек
-function buildDate(content, isAccent = false) { //isAccent для выходных(ячейки другого цвета)
-    const cls = isAccent ? 'month__date month__date_accent' : 'month__date';
-    return `<div class="${cls}">${content}</div>`
-}
+function renderMonth(monthIdx, year) {
+    const month = months[monthIdx];
+    const monthHeadString = buildMonthHead(month.title, month.name);
+
+    const monthContentHTML = ['<div class=\"month__content\">'];
+    monthContentHTML.push(buildWeekDaysNames());
+    monthContentHTML.push(buildDates(year, monthIdx, month.days));
+    monthContentHTML.push('</div>');
+
+    const monthBox = document.createElement('div');
+    monthBox.className = 'month';
+    monthBox.innerHTML = monthHeadString + monthContentHTML.join('');
+    dom.calendar.append(monthBox);
+};
 
 function renderCalendar (year) {
     for (let i=0; i<=11; i++) {
@@ -146,6 +145,3 @@ function renderCalendar (year) {
 }
 
 renderCalendar(year);
-
-//след коммит: добавили отрисовку ячеек для дат
-//переименовать функции рендер и билд!! и отдельный коммит fix
