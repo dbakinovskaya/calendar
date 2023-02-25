@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
 
 :root {
-    --dateSize: 50px;
+    --dateSize: 40px;
 }
 
 body {
@@ -58,7 +58,7 @@ header {
 }
 .month__date {
     width: var(--dateSize);
-    height: calc(var(--dateSize)/2);
+    height: calc(var(--dateSize)/1.5);
     color: #83818E;
     display: flex;
     align-items: center;

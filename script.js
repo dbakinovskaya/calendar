@@ -1,6 +1,15 @@
 const dom = {
-    calendar: document.querySelector('#calendar')
+    calendar: document.querySelector('#calendar'),
+    year: document.querySelector('#year'),
 };
+
+const year = new Date().getFullYear();
+dom.year.innerHTML = year;
+
+function isVis(year) {
+    let date = new Date(year, 2, 0);
+    return date.getDate()
+}
 
 const months = [
     {
@@ -11,7 +20,7 @@ const months = [
     {
         title: 'ёбаный<br>холод',
         name: 'февраль',
-        days: 28,
+        days: isVis(year),
     },
     {
         title: 'ёбаная<br>грязь',
@@ -99,24 +108,17 @@ function renderMonth(monthIdx, year) {
     dom.calendar.append(monthBox);
 };
 
-//цикл для отрисовки всех месяцев
-for (let i=1; i<2; i++) { // пока заменили на 1 месяц
-    renderMonth(i, 2022);
-};
-
-function renderWeekDaysNames() {
-    const weekDays = ['пн','вт','ср','чт','пт','сб','вс'];
-    let dayNames = [];
-    for (let i=0; i<=6; i++) {
-        const dayNameTag = `<div class='month__date month__date_accent'>${weekDays[i]}</div>`;
-        dayNames.push(dayNameTag);
-    }
-    return dayNames.join('');
-}
-
 function renderDates(year,monthIdx, daysCount) {
     const date = new Date(year, monthIdx, 1);
-    let datesHTML = []
+    let datesHTML = [];
+    const startDay = date.getDay();
+
+    let count = 1;
+    while (count < startDay || (startDay == 0 && count <=6)) {
+        datesHTML.push(buildDate(''));
+        count++;
+    }
+
     let day = 1;
     while (day <= daysCount) {
         datesHTML.push(buildDate(day));
@@ -124,13 +126,20 @@ function renderDates(year,monthIdx, daysCount) {
     }
     return datesHTML.join('');
 }
-const monthIdx = 4;
-const monthDaysCount = months[monthIdx].days
 
 //функция отрисовки ячеек
 function buildDate(content, isAccent = false) { //isAccent для выходных(ячейки другого цвета)
     const cls = isAccent ? 'month__date month__date_accent' : 'month__date';
-    return `<div class=${cls}>${content}</div>`
+    return `<div class="${cls}">${content}</div>`
 }
 
+function renderCalendar (year) {
+    for (let i=0; i<=11; i++) {
+        renderMonth(i, year);
+    };
+}
+
+renderCalendar(year);
+
 //след коммит: добавили отрисовку ячеек для дат
+//переименовать функции рендер и билд!! и отдельный коммит fix
