@@ -78,3 +78,7 @@ header {
 .month__date_accent {
     color: #E6007E;
 }
+
+#current__day {
+    border: 2px solid #FF612F;
+}

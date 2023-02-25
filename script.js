@@ -145,3 +145,17 @@ function renderCalendar (year) {
 }
 
 renderCalendar(year);
+
+function showCurrentDate() {
+    const month = document.querySelectorAll('.month');
+    const currentMonth = month[new Date().getMonth()];
+    const currentDate = new Date().getDate();
+    const list = currentMonth.getElementsByClassName('month__date');
+
+    for (let key in list) {
+        if (list[key].innerHTML == currentDate) {
+            list[key].setAttribute('id','current__day');
+        }
+    }
+}
+showCurrentDate()
