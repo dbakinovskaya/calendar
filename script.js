@@ -121,8 +121,14 @@ function renderDates(year,monthIdx, daysCount) {
 
     let day = 1;
     while (day <= daysCount) {
-        datesHTML.push(buildDate(day));
-        day++;
+        let checkDay = new Date(year, monthIdx, day).getDay();
+        if (checkDay == 0 || checkDay == 6) {
+            datesHTML.push(buildDate(day, true));
+            day++;
+        } else {
+            datesHTML.push(buildDate(day));
+            day++;
+        }
     }
     return datesHTML.join('');
 }
