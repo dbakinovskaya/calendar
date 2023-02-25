@@ -6,7 +6,7 @@ const dom = {
 const year = new Date().getFullYear();
 dom.year.innerHTML = year;
 
-function isVis(year) {
+function isLeap(year) {
     let date = new Date(year, 2, 0);
     return date.getDate()
 }
@@ -20,7 +20,7 @@ const months = [
     {
         title: 'ёбаный<br>холод',
         name: 'февраль',
-        days: isVis(year),
+        days: isLeap(year),
     },
     {
         title: 'ёбаная<br>грязь',
