@@ -1,6 +1,8 @@
 const dom = {
+    main: document.querySelector('main'),
     calendar: document.querySelector('#calendar'),
     year: document.querySelector('#year'),
+    switch: document.querySelector('.switch__theme'),
 }
 
 const year = new Date().getFullYear();
@@ -158,4 +160,13 @@ function showCurrentDate() {
         }
     }
 }
-showCurrentDate()
+showCurrentDate();
+
+dom.switch.addEventListener('click', function() {
+    if(dom.main.className == 'day') {
+        dom.main.className = 'night';
+    } else {
+        dom.main.className = 'day';
+    }
+
+})
