@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
 
+:root {
+    --dateSize: 21.71px;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -117,14 +121,14 @@ main.night .month__title {
 }
 
 main.day .month__name {
-    background: linear-gradient(to right,#FF612F 0%, #B414FF 35%);
+    background: linear-gradient(#FF612F 0%, #B414FF 35%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 main.night .month__name {
-    background: linear-gradient(to right, #FFED00 0%, #E6007E 35%);
+    background: linear-gradient(#FFED00 0%, #E6007E 35%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -148,8 +152,8 @@ main.night .month__date {
 }
 
 .month__date {
-    width: 21.71px;
-    height: calc(21.71px/1.3);
+    width: var(--dateSize);
+    height: calc(var(--dateSize)/1.3);
     color: #83818E;
     display: flex;
     align-items: center;
@@ -163,82 +167,4 @@ main.night .month__date {
 
 #current__day {
     border: 2px solid #FF612F;
-}
-
-@media screen and (max-width: 760px) {
-    main {
-        padding: 5px;
-    }
-
-    .switch__theme {
-        width: 42px;
-        height: 22px;
-        padding: 1px;
-    }
-
-    .switch {
-        width: 20px;
-        height: 20px;
-        transition: all .15s ease-in-out;
-    }
-
-    .switch img {
-        width: 20px;
-        height: 20px;
-    }
-
-    main.night .switch {
-        margin-left: 20px;
-    }
-
-    main.day .switch {
-        margin-right: 20px;
-    }
-
-    header {
-        max-width: 310px;
-        margin: 5px auto 0px;
-    }
-
-    .title {
-        font-size: 63px;
-        line-height: 70px;
-    }
-
-    .desc {
-        font-size: 30px;
-        padding: 0px;
-        line-height: 30px;
-        margin-bottom: 20px;
-    }
-
-    .calendar {
-        grid-gap:10px ;
-        max-width: 310px;
-        margin: 0px auto;
-    }
-
-    .month__title {
-        font-size: 9px;
-        margin-bottom: 0px;
-    }
-
-    .month__name {
-        margin-bottom: 0px;
-        font-size: 8px;
-    }
-
-    .month__date {
-        width: 10px;
-        height: calc(10px/1.3);
-        color: #83818E;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 5px;
-    }
-
-    #current__day {
-        border: .5px solid #FF612F;
-    }
 }
